@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>ScheduleIt</h1>
+    <p class="lead">Let us schedule that for you.</p>
+    
+</div>
+
+<div class="row">
+    <div id="calendar"></div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            eventClick: function (event, jsEvent, view) {
+                $('#modalTitle').html(event.title);
+                $('#modalBody').html(event.description);
+                $('#eventUrl').attr('href', event.url);
+                $('#fullCalModal').modal();
+                return false;
+            },
+            events: '/WorkTimeEvent/findall',
+            defaultView: 'month',
+            editable: true,
+            allDaySlot: false,
+            selectable: true,
+            slotMinutes: 15,
+        });
+    })
+
+</script>
